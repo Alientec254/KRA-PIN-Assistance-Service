@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KRA Application</title>
+
+<style>
+body { 
+  font-family:'Segoe UI',sans-serif; 
+  background:#f3f7f6; 
+  padding:20px; 
+  margin:0;
+}
+.container { 
+  max-width:1000px; 
+  margin:auto; 
+  background:#fff; 
+  border-radius:20px; 
+  padding:35px; 
+  box-shadow:0 8px 30px rgba(0,0,0,0.08); 
+  border-top:5px solid #10b981; 
+}
+
+.header { text-align:center; margin-bottom:30px; }
+.icon { 
+  width:65px; height:65px; background:#10b981; border-radius:50%; 
+  display:flex; align-items:center; justify-content:center; margin:auto; 
+  color:white; font-size:26px; 
+}
+h1 { color:#059669; margin-top:15px; }
+.sub { color:#6b7280; font-size:14px; }
+
+/* NOTICE BOX */
+.notice {
+  background:#ecfdf5;
+  border-left:5px solid #10b981;
+  padding:15px 18px;
+  border-radius:10px;
+  margin-bottom:20px;
+  font-size:14px;
+  color:#065f46;
+  line-height:1.6;
+}
+
+.section { margin-top:25px; }
+.section h3 { border-bottom:2px solid #d1fae5; padding-bottom:8px; color:#374151; }
+
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:15px; }
+@media(max-width:768px) { .grid { grid-template-columns:1fr; } }
+
+.field { display:flex; flex-direction:column; }
+label { font-size:13px; font-weight:600; margin-bottom:6px; }
+
+input, select { 
+  padding:14px; border-radius:10px; border:1px solid #d1d5db; outline:none; 
+}
+input:focus, select:focus { 
+  border-color:#10b981; box-shadow:0 0 0 3px rgba(16,185,129,0.2); 
+}
+
+button { 
+  margin-top:25px; width:100%; padding:15px; background:#10b981; color:white; 
+  border:none; border-radius:10px; font-size:16px; cursor:pointer; 
+}
+button:hover { background:#059669; }
+button:disabled { background:#9ca3af; cursor:not-allowed; }
+
+.screen { display:none; }
+.active { display:block; }
+
+#status { margin-top:15px; text-align:center; font-weight:bold; }
+
+/* Spinner */
+.spinner { 
+  display:none; width:50px; height:50px; border:5px solid #f3f3f3; 
+  border-top:5px solid #10b981; border-radius:50%; animation:spin 1s linear infinite; 
+  margin:20px auto; 
+}
+@keyframes spin { 0% { transform:rotate(0deg); } 100% { transform:rotate(360deg); } }
+
+.mpesa-logo { width:100px; height:100px; margin:20px auto; display:block; }
+
+/* SUCCESS MODAL */
+.success-modal {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.success-content {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 420px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+.success-icon { font-size: 60px; margin-bottom: 20px; }
+.success-content h2 { color: #10b981; }
+.close-btn {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* FOOTER */
+.footer {
+  margin-top:40px;
+  padding:25px;
+  background:#f9fafb;
+  border-radius:15px;
+  border-top:3px solid #10b981;
+}
+.footer h3 {
+  margin-bottom:10px;
+  color:#059669;
+}
+.footer p {
+  font-size:14px;
+  color:#374151;
+  line-height:1.6;
+}
+.footer .contact {
+  margin-top:10px;
+  font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div id="formScreen" class="screen active">
+    <div class="header">
+      <div class="icon">👤</div>
+      <h1>KRA Application Form</h1>
+      <div class="sub">Fill all required fields. We only contact you on 0780003131</div>
+    </div>
+
+    <!-- NOTICE ADDED HERE -->
+    <div class="notice">
+      <strong>Important:</strong><br>
+      This is a private service offered by <b>Alientec Cyber Services</b> to assist users with online applications.<br>
+      We are <b>NOT affiliated with any government agency</b>.<br><br>
+      <b>Service Fee:</b> KES 200 (for assistance only, not a government fee)
+    </div>
+
+    <form id="form">
+      <div class="section">
+        <h3>Personal Information</h3>
+        <div class="grid">
+          <div class="field"><label>Full Names *</label><input name="Full Names" required></div>
+          <div class="field"><label>Phone Number *</label><input name="Phone Number" required></div>
+          <div class="field"><label>Active Email *</label><input type="email" name="Active Email" required></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Personal Details</h3>
+        <div class="grid">
+          <div class="field"><label>Date of Birth *</label><input type="date" name="Date of Birth" required></div>
+          <div class="field"><label>ID Number *</label><input name="ID Number" required></div>
+          <div class="field"><label>Preferred Delivery *</label>
+            <select name="Preferred Delivery Method" required>
+              <option value="">Select</option>
+              <option>WhatsApp</option>
+              <option>Email</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Location Details</h3>
+        <div class="grid">
+          <div class="field"><label>County *</label><input name="County" required></div>
+          <div class="field"><label>District *</label><input name="District" required></div>
+          <div class="field"><label>Division *</label><input name="Division" required></div>
+          <div class="field"><label>Town *</label><input name="Town" required></div>
+          <div class="field"><label>P.O. Box *</label><input name="P.O. Box" required></div>
+        </div>
+      </div>
+
+      <div class="consent">
+        <label>
+          <input type="checkbox" id="consent" required>
+          I agree to the privacy policy
+        </label>
+      </div>
+
+      <button type="submit">Proceed to Payment</button>
+    </form>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <h3>About Us</h3>
+      <p>
+        Alientec Computers and ICT Centre is a duly registered cyber café in Kenya offering digital assistance services.
+      </p>
+
+      <p class="contact">
+        📍 Nairobi, Kenya | 📞 0780003131 | ✉ info@onlinecyber.co.ke
+      </p>
+
+      <p>
+        <strong>Privacy:</strong> Your information is used only to process your request and is not shared with third parties. 
+        All data is permanently deleted after service completion.
+      </p>
+    </div>
+  </div>
+
+  <!-- PAYMENT SCREEN (UNCHANGED) -->
+  <div id="paymentScreen" class="screen">
+    <div class="header">
+      <div class="icon">💳</div>
+      <h1>Complete Payment</h1>
+      <div class="sub">Enter your M-PESA number</div>
+    </div>
+
+    <div class="field">
+      <label>M-PESA Number *</label>
+      <input id="mpesa" placeholder="07XXXXXXXX" maxlength="10">
+    </div>
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/M-PESA_LOGO-01.svg" class="mpesa-logo">
+
+    <div id="spinner" class="spinner"></div>
+
+    <button id="payButton" onclick="payNow()">Pay Now - KES 200</button>
+    <div id="status"></div>
+  </div>
+
+</div>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbxukDLNV_aKGSdLaZVGhA6epqE8h7OLPNfCUQDMnJb6I7Lk49Ks3zIeiWJEyrDORF38hg/exec";
+let formDataStore = {};
+
+document.getElementById("form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  formDataStore = Object.fromEntries(new FormData(this).entries());
+  document.getElementById("formScreen").classList.remove("active");
+  document.getElementById("paymentScreen").classList.add("active");
+});
+
+async function payNow() {
+  alert("Payment triggered (demo)");
+}
+</script>
+
+</body>
+</html>
